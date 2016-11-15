@@ -11,7 +11,7 @@ Choose "brush" and layer and make your scenes.
 Enjoy!
 
 Download:
-https://github.com/mrzorgman/TilePainter/build
+https://github.com/mrzorgman/TilePainter/tree/master/build
 
 © mr.zorgman, 2016
 mr.zorgman@gmail.com
