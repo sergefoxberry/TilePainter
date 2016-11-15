@@ -28,7 +28,7 @@ public class TilePainter : MonoBehaviour
     private void Awake()
     {
         SceneView.onSceneGUIDelegate -= OnSceneGUI;
-        if (instance == null) instance = this; else if (instance != this) { Destroy(instance.gameObject); instance = this; }
+        if (instance == null) instance = this; else if (instance != this) { DestroyImmediate(instance.gameObject); instance = this; }
     }
 
     private void OnEnable()
@@ -47,20 +47,22 @@ public class TilePainter : MonoBehaviour
         if (isEnabledPriv)
         {
 #if UNITY_EDITOR
+            
             SceneView.onSceneGUIDelegate += OnSceneGUI;
             print("subscribe");
 # endif
         }
         else
             SceneView.onSceneGUIDelegate -= OnSceneGUI;
+
+        transform.FindChild("TileMasterField").gameObject.SetActive(isEnabledPriv);
     }
 
     private void Start()
     {
-        prefabs = Resources.LoadAll("PrefabsBlocks", typeof(GameObject))
+        prefabs = Resources.LoadAll("TilePainterPrefabs", typeof(GameObject))
              .Cast<GameObject>()
              .ToArray();
-        print(prefabs.Length);
     }
 
     private void OnSceneGUI(SceneView sceneview)

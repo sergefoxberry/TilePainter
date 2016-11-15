@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEditor;
+using System.Linq;
 
 public class TilePainterGUI : EditorWindow
 {
@@ -19,9 +20,21 @@ public class TilePainterGUI : EditorWindow
     {
         EditorWindow.GetWindow(typeof(TilePainterGUI));
     }
-
+    
     void OnGUI()
     {
+        if (TilePainter.instance == null)
+        {
+            if (FindObjectOfType<TilePainter>() != null) return;
+
+            GameObject[] g = Resources.LoadAll("TilePainterBase", typeof(GameObject))
+             .Cast<GameObject>()
+             .ToArray();
+
+            var tpm = Instantiate(g[0]);
+            tpm.name = "TilePainter";
+        }
+
         fileName = EditorGUILayout.TextField("File Name:", fileName);
         if (TilePainter.instance != null)
         {
